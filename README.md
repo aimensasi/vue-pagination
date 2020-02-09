@@ -3,7 +3,7 @@
 # Installation
 
 ```
-	npm install --save-dev vue-pagination
+	npm install --save-dev tth-v-pagination
 ```
 
 Then you can use it in your component...
@@ -13,11 +13,11 @@ Then you can use it in your component...
 		<div>
 			...
 
-			<pagination-component :total="total" @paginate="onPaginate"/>
+			<v-pagination :total="total" @paginate="onPaginate"/>
 		</div>
 	</template>
 	<script>
-		import VuePagination from 'vue-pagination';
+		import VuePagination from 'tth-v-pagination';
 
 		export default {
 			...
@@ -25,6 +25,12 @@ Then you can use it in your component...
 				'v-pagination': VuePagination,
 			},
 			...
+			methods: {
+				...
+				onPaginate: function(query){
+
+				}
+			}
 		}
 	</script>
 ```
