@@ -4,14 +4,14 @@
 			<div class="pagination-wrapper">
 				<ul class="pagination">
 
-					<li class="page-link page-first" :class="{ disabled: currentPage == firstPage }" @click="onNavigate(firstPage)">
+					<li class="paginate-link page-first" :class="{ disabled: currentPage == firstPage }" @click="onNavigate(firstPage)">
 						<a>«</a>
 					</li>
-					<li class="page-link page-pre" :class="{ disabled: currentPage == firstPage }" @click="onPrevious">
+					<li class="paginate-link page-pre" :class="{ disabled: currentPage == firstPage }" @click="onPrevious">
 						<a>‹</a>
 					</li>
 
-					<li class="page-link page-number" 
+					<li class="paginate-link page-number" 
 						v-for="page in pages" 
 						:key="page"
 						@click="onNavigate(page)" 
@@ -19,10 +19,10 @@
 							<a>{{ page }}</a>
 					</li>
 
-					<li class="page-link page-next" :class="{ disabled: currentPage == lastPage }" @click="onNext">
+					<li class="paginate-link page-next" :class="{ disabled: currentPage == lastPage }" @click="onNext">
 						<a>›</a>
 					</li>
-					<li class="page-link page-last" :class="{ disabled: currentPage == lastPage }" @click="onNavigate(lastPage)">
+					<li class="paginate-link page-last" :class="{ disabled: currentPage == lastPage }" @click="onNavigate(lastPage)">
 						<a>»</a>
 					</li>
 
@@ -46,7 +46,7 @@
 			limit: {
 				type: Number,
 				default: 10,
-			},
+			}
 		},
 		data: function(){
 			return {
@@ -154,10 +154,12 @@
 			margin-bottom: 10px;
 			.pagination {
 				margin: 0;
-				.page-link{
+				.paginate-link{
 					cursor: pointer;
-					font-size: 20px;
-          margin: 0 10px;
+					margin: 0 10px;
+					&.page-number{
+						font-size: 16px;
+					}
 					a{
 						color: #ddd;
 						cursor: pointer;
@@ -184,7 +186,6 @@
 					&.active {
 						a {
 							font-weight: bold;
-							text-decoration: underline;
 						}
 					}
 				}
