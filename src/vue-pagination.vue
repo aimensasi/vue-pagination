@@ -1,24 +1,28 @@
 <template>
 	<div class="row d-flex">
 		<div class="fixed-table-pagination ml-auto mr-3">
-			<div class="pagination">
+			<div class="pagination-wrapper">
 				<ul class="pagination">
 
-					<li class="page-first" :class="{ disabled: currentPage == firstPage }" @click="onNavigate(firstPage)">
+					<li class="page-link page-first" :class="{ disabled: currentPage == firstPage }" @click="onNavigate(firstPage)">
 						<a>«</a>
 					</li>
-					<li class="page-pre" :class="{ disabled: currentPage == firstPage }" @click="onPrevious">
+					<li class="page-link page-pre" :class="{ disabled: currentPage == firstPage }" @click="onPrevious">
 						<a>‹</a>
 					</li>
 
-					<li class="page-number" v-for="page in pages" @click="onNavigate(page)" :class="{ active: page == currentPage}">
-						<a>{{ page }}</a>
+					<li class="page-link page-number" 
+						v-for="page in pages" 
+						:key="page"
+						@click="onNavigate(page)" 
+						:class="{ active: page == currentPage}">
+							<a>{{ page }}</a>
 					</li>
 
-					<li class="page-next" :class="{ disabled: currentPage == lastPage }" @click="onNext">
+					<li class="page-link page-next" :class="{ disabled: currentPage == lastPage }" @click="onNext">
 						<a>›</a>
 					</li>
-					<li class="page-last" :class="{ disabled: currentPage == lastPage }" @click="onNavigate(lastPage)">
+					<li class="page-link page-last" :class="{ disabled: currentPage == lastPage }" @click="onNavigate(lastPage)">
 						<a>»</a>
 					</li>
 
@@ -42,7 +46,7 @@
 			limit: {
 				type: Number,
 				default: 10,
-			}
+			},
 		},
 		data: function(){
 			return {
@@ -57,6 +61,7 @@
 			};
 		},
 		mounted(){
+			console.log("Pagination Mounted...");
 			this.setDefaults();
 		},
 		watch: {
@@ -105,7 +110,7 @@
 
 				let query = { limit: this.limit, offset: offset};
 
-				this.$emit('paginate', query);
+				this.$emit('navigate', query);
 				this.setDefaults();
 			},
 			onPrevious: function(){
@@ -136,4 +141,54 @@
 
 <style lang="scss" scoped>
 
+	.fixed-table-pagination{
+		margin: 0 10px;
+		&::after{
+			content: "";
+			clear: both;
+			display: table;
+		}
+
+		.pagination-wrapper {
+			margin-top: 10px;
+			margin-bottom: 10px;
+			.pagination {
+				margin: 0;
+				.page-link{
+					cursor: pointer;
+					font-size: 20px;
+          margin: 0 10px;
+					a{
+						color: #ddd;
+						cursor: pointer;
+						padding: 6px 12px;
+						line-height: 1.428571429;
+					}
+					&.page-number.active a{
+						color: white;
+						background-color: #ddd;
+						padding: 5px 11px;
+					}
+					&:not(.disabled) {
+						a {
+							cursor: pointer;
+						}
+					}
+					&.disabled {
+						pointer-events: none;
+    				cursor: default;
+						a {
+							cursor: not-allowed;
+						}
+					}
+					&.active {
+						a {
+							font-weight: bold;
+							text-decoration: underline;
+						}
+					}
+				}
+			}
+		}
+	}
 </style>
